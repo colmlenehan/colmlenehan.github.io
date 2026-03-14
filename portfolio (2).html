@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colm Lenehan &mdash; Designer &amp; Creator</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/k5MvZRp3/889455.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: #fff;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button, input, textarea, select { font-family: inherit; }
+
+/* CURSOR */
+body.use-cursor { cursor: none; }
+body.use-cursor a,
+body.use-cursor button,
+body.use-cursor .proj-card,
+body.use-cursor .filter-btn,
+body.use-cursor .chip,
+body.use-cursor .stat-cell { cursor: none; }
+
+#cur {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: #555;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .18s, height .18s, background .18s, border .18s;
+  opacity: 0;
+}
+#cur.show { opacity: 1; }
+#cur.big {
+  width: 32px; height: 32px;
+  background: rgba(0,0,0,.04);
+  border: 1.5px solid rgba(0,0,0,.22);
+}
+
+/* NAV */
+#gnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 44px;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(to bottom, #4d4d4d 0%, #383838 50%, #2d2d2d 51%, #282828 100%);
+  border-bottom: 1px solid #111;
+  box-shadow: 0 1px 3px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.09);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gnav-inner {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+}
+.gnav-brand {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ddd;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.gnav-links { list-style: none; display: flex; align-items: center; }
+.gnav-links a {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #aaa;
+  letter-spacing: .01em;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.gnav-links a:hover  { color: #fff; }
+.gnav-links a.active { color: #fff; }
+
+/* HERO */
+#hero {
+  margin-top: 44px;
+  padding: 80px 22px 72px;
+  background: #fff;
+  border-bottom: 1px solid #d8d8d8;
+}
+.hero-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+.hero-left { flex: 1; display: flex; flex-direction: column; }
+.hero-eyebrow { font-size: 16px; font-style: italic; color: #999; margin-bottom: 8px; }
+.hero-name {
+  font-size: 62px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+  letter-spacing: -.022em;
+  margin-bottom: 14px;
+}
+.hero-role { font-size: 20px; color: #555; margin-bottom: 22px; }
+.hero-desc {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.72;
+  max-width: 420px;
+  margin-bottom: 32px;
+}
+.hero-desc strong { font-weight: 600; color: #333; }
+.hero-ctas { display: flex; gap: 24px; flex-wrap: wrap; }
+.tlink { font-size: 14px; color: #06c; transition: color .15s; }
+.tlink:hover { color: #0055aa; text-decoration: underline; }
+
+.hero-right {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.hero-photo {
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 8px 28px rgba(0,0,0,.13), 0 1px 4px rgba(0,0,0,.07);
+  background: #e8e8e8;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-caption { font-size: 12px; font-style: italic; color: #999; }
+
+/* STAT ROW */
+.stat-row {
+  display: flex;
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+}
+.stat-cell {
+  flex: 1;
+  min-height: 72px;
+  padding: 16px 18px;
+  border-right: 1px solid #d8d8d8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+  transition: background .15s;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: #f8f8f8; }
+.stat-cell.hi { background: #a8d4f5; }
+.stat-cell.hi:hover { background: #92c8f2; }
+.stat-val { font-size: 15px; font-weight: 600; color: #222; }
+.stat-lbl { font-size: 12px; color: #666; }
+.stat-cell.hi .stat-val,
+.stat-cell.hi .stat-lbl { color: #002244; }
+
+/* SECTIONS */
+.section { padding: 70px 0; border-bottom: 1px solid #d8d8d8; }
+.section-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+.section-eye {
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 6px;
+}
+.section-h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -.018em;
+  margin-bottom: 6px;
+  line-height: 1.15;
+}
+.section-sub { font-size: 16px; font-style: italic; color: #888; margin-bottom: 48px; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.about-body p { font-size: 15px; color: #555; line-height: 1.78; margin-bottom: 16px; }
+.about-body p strong { font-weight: 600; color: #333; }
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
+.sk { display: flex; flex-direction: column; gap: 3px; }
+.sk-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sk-name::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #06c;
+  flex-shrink: 0;
+}
+.sk-desc { font-size: 12px; color: #888; line-height: 1.5; padding-left: 12px; }
+
+
+/* SALTBOUND HERO CARD */
+.proj-hero {
+  grid-column: 1 / -1;
+  background: #080f18;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: stretch;
+  transition: none;
+}
+.proj-hero:hover { background: #080f18; }
+.proj-hero:hover .proj-title { color: inherit; }
+
+.sb-ocean {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 110% 55% at 50% 105%, #0e3a5c 0%, transparent 60%),
+    radial-gradient(ellipse 70% 35% at 80% 80%,  #0a2e4a 0%, transparent 55%),
+    linear-gradient(to bottom, #050c13 0%, #091624 45%, #0c2438 100%);
+  overflow: hidden;
+}
+.sb-ocean::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 18% 22%, rgba(255,255,255,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 52% 13%, rgba(255,255,255,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 73% 28%, rgba(255,255,255,.13) 0%, transparent 100%),
+    radial-gradient(1px 1px at 36% 9%,  rgba(255,255,255,.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 17%, rgba(255,255,255,.11) 0%, transparent 100%),
+    radial-gradient(1px 1px at 9%  38%, rgba(255,255,255,.09) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 62% 7%, rgba(255,255,255,.22) 0%, transparent 100%);
+  pointer-events: none;
+}
+.sb-waves {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 65%;
+  overflow: hidden;
+}
+.sb-wave {
+  position: absolute;
+  left: -20%; right: -20%;
+  height: 2px;
+  border-radius: 50%;
+  background: linear-gradient(to right,
+    transparent 0%,
+    rgba(90,170,230,.2) 20%,
+    rgba(130,200,250,.32) 50%,
+    rgba(90,170,230,.2) 80%,
+    transparent 100%
+  );
+  animation: sbWave linear infinite;
+}
+.sb-wave:nth-child(1) { bottom: 58%; animation-duration: 10s;  animation-delay:   0s; opacity: .6; }
+.sb-wave:nth-child(2) { bottom: 47%; animation-duration: 13s;  animation-delay:  -4s; opacity: .42; }
+.sb-wave:nth-child(3) { bottom: 36%; animation-duration:  8s;  animation-delay:  -6s; opacity: .55; }
+.sb-wave:nth-child(4) { bottom: 25%; animation-duration: 15s;  animation-delay:  -2s; opacity: .28; }
+.sb-wave:nth-child(5) { bottom: 13%; animation-duration:  7s;  animation-delay:  -8s; opacity: .65; }
+@keyframes sbWave {
+  0%   { transform: translateX(0)   scaleY(1);   }
+  25%  { transform: translateX(2%)  scaleY(1.4); }
+  50%  { transform: translateX(5%)  scaleY(.75); }
+  75%  { transform: translateX(2%)  scaleY(1.2); }
+  100% { transform: translateX(0)   scaleY(1);   }
+}
+.sb-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: .04;
+  pointer-events: none;
+}
+.sb-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding: 34px 32px 30px;
+}
+.sb-left { flex: 1; display: flex; flex-direction: column; }
+.sb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Source Sans 3', sans-serif;
+  color: rgba(130,200,250,.65);
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  margin-bottom: 11px;
+}
+.sb-eyebrow::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: rgba(130,200,250,.45);
+}
+.sb-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 50px;
+  font-weight: 700;
+  color: #ddeeff;
+  line-height: .96;
+  letter-spacing: -.024em;
+  margin-bottom: 13px;
+  text-shadow: 0 3px 24px rgba(0,0,0,.9);
+}
+.sb-tagline {
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(170,215,255,.62);
+  margin-bottom: 18px;
+  line-height: 1.58;
+  max-width: 460px;
+}
+.sb-chips {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.sb-chip {
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'Source Sans 3', sans-serif;
+  color: rgba(130,200,250,.72);
+  padding: 3px 9px;
+  border: 1px solid rgba(90,160,220,.28);
+  border-radius: 2px;
+  background: rgba(14,54,92,.38);
+  letter-spacing: .03em;
+}
+.sb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Source Sans 3', sans-serif;
+  color: #06111e;
+  background: linear-gradient(to bottom, #a4d4ee, #62a8d0);
+  border: none;
+  border-radius: 3px;
+  padding: 9px 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 14px rgba(90,170,230,.38), inset 0 1px 0 rgba(255,255,255,.28);
+  transition: all .2s;
+  width: fit-content;
+}
+.sb-btn:hover {
+  background: linear-gradient(to bottom, #bcdefc, #78bcde);
+  box-shadow: 0 4px 20px rgba(90,170,230,.55), inset 0 1px 0 rgba(255,255,255,.28);
+  transform: translateY(-1px);
+}
+.sb-btn:active { transform: translateY(0); }
+.sb-right {
+  flex: 0 0 auto;
+  padding-left: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.sb-route {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sb-route-label {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: 'Source Sans 3', sans-serif;
+  color: rgba(130,200,250,.35);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  margin-bottom: 8px;
+  align-self: flex-end;
+}
+.sb-stop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.sb-stop-name {
+  font-size: 11px;
+  font-family: 'Source Sans 3', sans-serif;
+  color: rgba(150,210,255,.5);
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+.sb-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(90,160,220,.5);
+  flex-shrink: 0;
+  position: relative;
+}
+.sb-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 14px;
+  border: 1px solid rgba(90,160,220,.2);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+}
+.sb-connector {
+  width: 1px;
+  height: 12px;
+  margin-left: 3px;
+  background: linear-gradient(to bottom, rgba(90,160,220,.3), rgba(90,160,220,.1));
+}
+
+/* PROJECTS */
+#projects { background: #f4f4f4; }
+.filter-bar {
+  display: flex;
+  margin-bottom: 36px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  overflow: hidden;
+  width: fit-content;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.filter-btn {
+  font-size: 13px;
+  color: #555;
+  padding: 7px 18px;
+  background: linear-gradient(to bottom, #fafafa, #e8e8e8);
+  border: none;
+  border-right: 1px solid #c4c4c4;
+  transition: background .15s, color .15s;
+}
+.filter-btn:last-child { border-right: none; }
+.filter-btn:hover { background: linear-gradient(to bottom, #f2f2f2, #e0e0e0); color: #222; }
+.filter-btn.active {
+  background: linear-gradient(to bottom, #dedede, #cecece);
+  color: #111;
+  font-weight: 600;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.14);
+}
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.proj-card {
+  background: #fff;
+  padding: 26px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  transition: background .15s;
+}
+.proj-card:hover { background: #fafafa; }
+.proj-card:hover .proj-title { color: #06c; }
+.proj-icon {
+  width: 54px; height: 54px;
+  border-radius: 13px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.proj-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 50% 0;
+  background: rgba(255,255,255,.16);
+}
+.ic-blue   { background: linear-gradient(150deg, #4090d8, #1a6ec0); }
+.ic-orange { background: linear-gradient(150deg, #e07030, #bf5518); }
+.ic-purple { background: linear-gradient(150deg, #7850b0, #553488); }
+.ic-gold   { background: linear-gradient(150deg, #c8a030, #9e7818); }
+.ic-red    { background: linear-gradient(150deg, #c83848, #a02030); }
+.ic-green  { background: linear-gradient(150deg, #5a8a40, #386828); }
+.proj-cat { font-size: 11px; font-style: italic; color: #999; margin-bottom: 4px; }
+.proj-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -.01em;
+  margin-bottom: 8px;
+  transition: color .15s;
+}
+.proj-desc { font-size: 13px; color: #666; line-height: 1.65; flex: 1; margin-bottom: 16px; }
+.proj-more { font-size: 13px; color: #06c; transition: color .15s; }
+.proj-more:hover { color: #0055aa; text-decoration: underline; }
+
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-intro { font-size: 15px; color: #555; line-height: 1.75; margin-bottom: 28px; }
+.contact-facts { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+.fact { display: flex; flex-direction: column; gap: 2px; }
+.fact-label { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .1em; }
+.fact-val { font-size: 15px; color: #333; }
+.fact-val a { color: #06c; }
+.fact-val a:hover { text-decoration: underline; }
+.chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.chip {
+  font-size: 12px;
+  color: #06c;
+  padding: 5px 13px;
+  border: 1px solid #9ec8ee;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #f0f8ff, #e2eefa);
+  transition: background .15s, border-color .15s;
+}
+.chip:hover { background: linear-gradient(to bottom, #e2f0fc, #d2e6f4); border-color: #78b4e0; }
+.cform { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 12px; font-weight: 600; color: #555; }
+.field input,
+.field textarea {
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 9px 11px;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.07);
+  transition: border-color .2s, box-shadow .2s;
+  resize: none;
+}
+.field input:focus,
+.field textarea:focus {
+  border-color: #68aae0;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 0 0 3px rgba(80,145,215,.18);
+}
+.field textarea { height: 96px; }
+.btn-primary {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(to bottom, #70b8f2, #1a78d2 50%, #1464bc);
+  border: 1px solid #0e54a4;
+  border-radius: 5px;
+  padding: 9px 24px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 2px 5px rgba(0,0,0,.22);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.22);
+  transition: background .15s, box-shadow .15s, transform .1s;
+  width: fit-content;
+  letter-spacing: .01em;
+}
+.btn-primary:hover {
+  background: linear-gradient(to bottom, #84c4f8, #2284dc 50%, #1870ca);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 3px 7px rgba(0,0,0,.24);
+}
+.btn-primary:active { transform: translateY(1px); }
+
+/* FOOTER */
+footer { background: #f0f0f0; border-top: 1px solid #d4d4d4; padding: 28px 0 24px; }
+.footer-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+.footer-cols {
+  display: flex;
+  gap: 52px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #d4d4d4;
+}
+.fcol { display: flex; flex-direction: column; gap: 5px; }
+.fcol-title { font-size: 10px; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 2px; }
+.fcol a { font-size: 12px; color: #666; transition: color .15s; }
+.fcol a:hover { color: #06c; text-decoration: underline; }
+.footer-copy { font-size: 11px; color: #999; }
+
+/* OVERLAY */
+#overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s;
+}
+#overlay.open { opacity: 1; pointer-events: all; }
+.ov-box {
+  width: min(620px, 100%);
+  background: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,.34);
+  transform: scale(.93) translateY(16px);
+  transition: transform .28s cubic-bezier(.34,1.5,.64,1);
+}
+#overlay.open .ov-box { transform: scale(1) translateY(0); }
+.ov-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #f8f8f8, #e4e4e4);
+  border: 1px solid #ccc;
+  font-size: 13px; color: #777;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, color .15s;
+}
+.ov-close:hover { background: linear-gradient(to bottom, #eee, #d8d8d8); color: #333; }
+#ov-eye  { font-size: 11px; font-style: italic; color: #aaa; margin-bottom: 5px; }
+#ov-ttl  { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -.015em; margin-bottom: 14px; }
+#ov-desc { font-size: 14px; color: #555; line-height: 1.78; margin-bottom: 22px; }
+#ov-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ov-tag  { font-size: 12px; color: #666; padding: 4px 12px; border: 1px solid #e0e0e0; border-radius: 3px; background: #f8f8f8; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  .hero-inner { flex-direction: column-reverse; align-items: center; text-align: center; }
+  .hero-left  { align-items: center; }
+  .hero-desc  { max-width: 100%; }
+  .hero-ctas  { justify-content: center; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+  .proj-grid  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .hero-name  { font-size: 44px; }
+  .proj-grid  { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .stat-row   { flex-wrap: wrap; }
+  .stat-cell  { flex: 0 0 50%; border-bottom: 1px solid #d8d8d8; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav id="gnav">
+  <div class="gnav-inner">
+    <div class="gnav-brand">Colm Lenehan</div>
+    <ul class="gnav-links">
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://x.com/AdvComEnt" target="_blank" rel="noopener">ACE Productions</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Introducing</div>
+      <div class="hero-name">Colm Lenehan.</div>
+      <div class="hero-role">Designer. Creator. Builder.</div>
+      <p class="hero-desc">
+        Graphic designer, product designer, game developer, and founder of
+        <strong>ACE Productions</strong> &mdash; a tech-media company building at the
+        intersection of gaming, film, AI, and interactive media.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="tlink">View projects &#8250;</a>
+        <a href="#about"    class="tlink">Learn more &#8250;</a>
+        <a href="#contact"  class="tlink">Get in touch &#8250;</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo">
+        <img src="https://i.postimg.cc/pXVQMNGz/20260222-184928-0000-(1).png"
+             alt="Colm Lenehan"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="hero-caption">Colm Lenehan</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT ROW -->
+<div class="stat-row">
+  <div class="stat-cell">
+    <div class="stat-val">ACE Productions</div>
+    <div class="stat-lbl">Tech-media company</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-val">PlayerCloud</div>
+    <div class="stat-lbl">Crossplay platform</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-val">6+ Projects</div>
+    <div class="stat-lbl">Games, VR, Brand, UX</div>
+  </div>
+  <div class="stat-cell hi">
+    <div class="stat-val">Available now.</div>
+    <div class="stat-lbl">Open to new projects.</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="section-eye">About</div>
+    <h2 class="section-h2">Designed at the edges of every discipline.</h2>
+    <p class="section-sub">Graphic design. Product design. Game development. All of it.</p>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>I'm <strong>Colm Lenehan</strong>, a graphic and product designer based in Ireland.
+           I run <strong>ACE Productions</strong>, a tech-media company focused on global-scale
+           innovation in gaming, film, AI, cloud tech, and interactive media.</p>
+        <p>Currently working with <strong>Pelican Party</strong> and building <strong>PlayerCloud</strong>,
+           crossplay infrastructure for PC gaming with free and paid tiers including CloudBoost and CloudBoost+.</p>
+        <p>My setup: Mac mini M4, Nintendo Switch, PS5, Xbox Series X, Meta Quest.
+           I design for the people holding those controllers.</p>
+        <p style="margin-top:22px;"><a href="#projects" class="tlink">See my work &#8250;</a></p>
+      </div>
+      <div class="skills-grid">
+        <div class="sk"><div class="sk-name">Product Design</div><div class="sk-desc">UI, UX, interaction design and full system architecture.</div></div>
+        <div class="sk"><div class="sk-name">Game Development</div><div class="sk-desc">Roblox, Meta Quest VR, Scratch. Full dev cycle.</div></div>
+        <div class="sk"><div class="sk-name">Brand Identity</div><div class="sk-desc">Visual systems, typography, motion and creative direction.</div></div>
+        <div class="sk"><div class="sk-name">PlayerCloud</div><div class="sk-desc">PC crossplay platform. Proposals to Epic, Mojang, Roblox.</div></div>
+        <div class="sk"><div class="sk-name">VR / XR</div><div class="sk-desc">Surreal world-building and experience design for Meta Quest.</div></div>
+        <div class="sk"><div class="sk-name">Content Creation</div><div class="sk-desc">YouTube creator and media producer under ACE Productions.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-inner">
+    <div class="section-eye">Selected work</div>
+    <h2 class="section-h2">Things I've built.</h2>
+    <p class="section-sub">Games, platforms, brands, and worlds.</p>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-f="all">All</button>
+      <button class="filter-btn" data-f="ux">UX &amp; Product</button>
+      <button class="filter-btn" data-f="survival">Survival</button>
+      <button class="filter-btn" data-f="games">Games</button>
+      <button class="filter-btn" data-f="vr">VR</button>
+      <button class="filter-btn" data-f="brand">Brand</button>
+    </div>
+    <div class="proj-grid" id="projGrid">
+      <!-- SALTBOUND HERO -->
+      <div class="proj-hero" data-cat="survival" data-i="6">
+        <div class="sb-ocean">
+          <div class="sb-waves">
+            <div class="sb-wave"></div>
+            <div class="sb-wave"></div>
+            <div class="sb-wave"></div>
+            <div class="sb-wave"></div>
+            <div class="sb-wave"></div>
+          </div>
+          <div class="sb-grain"></div>
+        </div>
+        <div class="sb-content">
+          <div class="sb-left">
+            <div class="sb-eyebrow">Game Concept &middot; 1&ndash;4 Players</div>
+            <div class="sb-title">Saltbound</div>
+            <div class="sb-tagline">A cooperative survival expedition. Repair your boat, cross seven seas, find rescue.</div>
+            <div class="sb-chips">
+              <span class="sb-chip">Cooperative Survival</span>
+              <span class="sb-chip">Open World</span>
+              <span class="sb-chip">Exploration</span>
+              <span class="sb-chip">Nautical</span>
+              <span class="sb-chip">Resource Management</span>
+            </div>
+            <button class="sb-btn">View Project &#8250;</button>
+          </div>
+          <div class="sb-right">
+            <div class="sb-route">
+              <div class="sb-route-label">The Expedition</div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Island Start</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Mediterranean Sea</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Red Sea</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Persian Gulf</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Adriatic Sea</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Aegean Sea</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Black Sea</div></div>
+              <div class="sb-connector"></div>
+              <div class="sb-stop"><div class="sb-dot"></div><div class="sb-stop-name">Caspian Sea &mdash; Rescue</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card" data-cat="ux"    data-i="0">
+        <div class="proj-icon ic-blue">PC</div>
+        <div class="proj-cat">UX &middot; Product</div>
+        <div class="proj-title">PlayerCloud</div>
+        <div class="proj-desc">PC crossplay infrastructure. Free and paid tiers. Custom multiplayer servers for compatible games.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+      <div class="proj-card" data-cat="brand" data-i="1">
+        <div class="proj-icon ic-orange">ACE</div>
+        <div class="proj-cat">Brand &middot; Identity</div>
+        <div class="proj-title">ACE Productions</div>
+        <div class="proj-desc">Full identity system for a tech-media company building at global scale across gaming, film, and AI.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+      <div class="proj-card" data-cat="vr"    data-i="2">
+        <div class="proj-icon ic-purple">VR</div>
+        <div class="proj-cat">VR &middot; World Design</div>
+        <div class="proj-title">Old Pork Village</div>
+        <div class="proj-desc">Surreal Meta Quest VR experience. Uncanny world design. Gameplay that defies genre categorisation.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+      <div class="proj-card" data-cat="games" data-i="3">
+        <div class="proj-icon ic-gold">PT</div>
+        <div class="proj-cat">Games &middot; Scratch</div>
+        <div class="proj-title">Platina</div>
+        <div class="proj-desc">Fan crossover of Undertale and Deltarune. Kris as protagonist. Custom battle system and new Dark World.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+      <div class="proj-card" data-cat="games" data-i="4">
+        <div class="proj-icon ic-red">RBX</div>
+        <div class="proj-cat">Games &middot; Roblox</div>
+        <div class="proj-title">Doomspire Revival</div>
+        <div class="proj-desc">Competitive remake of classic Roblox Doomspire. Revolver mechanic, timed rounds, modern game feel.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+      <div class="proj-card" data-cat="brand" data-i="5">
+        <div class="proj-icon ic-green">GF</div>
+        <div class="proj-cat">Design &middot; Music</div>
+        <div class="proj-title">Glassfire</div>
+        <div class="proj-desc">Visual identity and album art for a fictional grunge-alternative-funk band. Debut album: Banana Static.</div>
+        <span class="proj-more">Learn more &#8250;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-eye">Get in touch</div>
+    <h2 class="section-h2">Let's build something.</h2>
+    <p class="section-sub">Open to new projects, collaborations, and partnerships.</p>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">I'm Colm, based in Ireland and available globally. Whether you're
+        building a game, a brand, or something that doesn't have a name yet, reach out.</p>
+        <div class="contact-facts">
+          <div class="fact"><div class="fact-label">Company</div><div class="fact-val">ACE Productions</div></div>
+          <div class="fact"><div class="fact-label">Email</div><div class="fact-val"><a id="email-link" href="#">rxcreeper [at] gmail.com</a></div></div>
+          <div class="fact"><div class="fact-label">Location</div><div class="fact-val">Ireland &middot; Available globally</div></div>
+        </div>
+        <div class="chips">
+          <a class="chip" href="https://x.com/AdvComEnt"                              target="_blank" rel="noopener">X / Twitter</a>
+          <a class="chip" href="https://discord.gg/ZvB9RF3Ftv"                        target="_blank" rel="noopener">Discord</a>
+          <a class="chip" href="https://www.youtube.com/@ModSoftwareLimits"           target="_blank" rel="noopener">YouTube</a>
+          <a class="chip" href="https://github.com/colmlenehan-osx"                   target="_blank" rel="noopener">GitHub</a>
+          <a class="chip" href="https://www.linkedin.com/in/colm-lenehan-b74a063a3/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="cform">
+        <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name" autocomplete="name"></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn-primary" id="sendBtn">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div class="fcol">
+        <div class="fcol-title">Work</div>
+        <a href="#projects">PlayerCloud</a>
+        <a href="#projects">ACE Productions</a>
+        <a href="#projects">Old Pork Village</a>
+        <a href="#projects">Platina</a>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">About</div>
+        <a href="#about">Background</a>
+        <a href="#about">Skills</a>
+        <a href="https://x.com/AdvComEnt" target="_blank" rel="noopener">ACE Productions</a>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Connect</div>
+        <a href="https://x.com/AdvComEnt"                              target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://discord.gg/ZvB9RF3Ftv"                        target="_blank" rel="noopener">Discord</a>
+        <a href="https://www.youtube.com/@ModSoftwareLimits"           target="_blank" rel="noopener">YouTube</a>
+        <a href="https://github.com/colmlenehan-osx"                   target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/colm-lenehan-b74a063a3/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Contact</div>
+        <a href="#contact">Get in touch</a>
+        <a id="footer-email" href="#">rxcreeper [at] gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      Copyright &copy; 2026 Colm Lenehan. All rights reserved. &middot; ACE Productions &middot; Ireland
+    </div>
+  </div>
+</footer>
+
+<!-- OVERLAY -->
+<div id="overlay" role="dialog" aria-modal="true" aria-labelledby="ov-ttl">
+  <div class="ov-box">
+    <button class="ov-close" id="ovClose" aria-label="Close">&times;</button>
+    <div id="ov-eye"></div>
+    <div id="ov-ttl"></div>
+    <div id="ov-desc"></div>
+    <div id="ov-tags"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  /* Project data */
+  var PD = [
+    { eye: 'UX &middot; Product Design', title: 'PlayerCloud',
+      desc: 'A PC-only executable enabling crossplay between compatible games including Minecraft, Roblox Doomspire, and Fortnite via custom multiplayer servers. Features CloudBoost and CloudBoost+ paid tiers with a liquid glass aesthetic. Active proposals prepared for Epic Games, Mojang, and Roblox.',
+      tags: ['Product Design','UI / UX','Electron','Gaming','Crossplay','Cloud Infrastructure'] },
+    { eye: 'Brand &middot; Identity System', title: 'ACE Productions',
+      desc: 'Full brand identity system for ACE Productions (Advanced Computing for Entertainment). A tech-media company focused on global-scale innovation in gaming, film, AI, and interactive media. Original naming architecture and cohesive visual language across all touchpoints.',
+      tags: ['Branding','Identity System','Motion','Typography','Creative Direction'] },
+    { eye: 'VR &middot; World Design', title: 'Old Pork Village',
+      desc: 'A surreal Meta Quest VR experience set in the fictional Old Pork Village. Features gender selection, strange mechanics, and an uncanny hand-crafted world designed to feel absurd, comedic, and genuinely unsettling in equal measure.',
+      tags: ['Meta Quest','VR Design','Game Design','Unity','3D World Building'] },
+    { eye: 'Games &middot; Scratch', title: 'Platina',
+      desc: 'A fan-made Scratch game blending Undertale and Deltarune. Kris leads a new party in an entirely original Dark World, with combined lore, custom battle systems, environments, and original dialogue trees.',
+      tags: ['Scratch','Game Development','Pixel Art','Narrative Design','Fan Game'] },
+    { eye: 'Roblox &middot; Game Dev', title: 'Doomspire Revival',
+      desc: 'Competitive remake of classic Roblox Doomspire Brickbattle featuring a revolver mechanic, timed match structure, and a modernised feel built for current Roblox while honouring the spirit of the original.',
+      tags: ['Roblox','Lua','Game Design','Level Design','Competitive Multiplayer'] },
+    { eye: 'Design &middot; Music Identity', title: 'Glassfire',
+      desc: 'Visual identity and album artwork for Glassfire, a fictional band blending grunge, alternative, and funk. Includes logo system and cover art for debut album "Banana Static", rooted in raw texture and warm contrast.',
+      tags: ['Graphic Design','Album Art','Branding','Typography','Music Identity'] },
+    { eye: 'Game Concept &middot; Cooperative', title: 'Saltbound',
+      desc: 'A cooperative survival and exploration game for one to four players. Beginning stranded on a remote island with a damaged rowboat, the team must gather resources, repair their vessel, and navigate seven seas to reach rescue. Each region brings new environmental hazards, marine life, and survival challenges across the Mediterranean, Red Sea, Persian Gulf, Adriatic, Aegean, Black Sea, and Caspian Sea.',
+      tags: ['Game Design','Cooperative Survival','World Building','Nautical','Resource Management','Exploration'] }
+  ];
+
+  /* Email */
+  var em = 'rxcreeper' + '@' + 'gmail.com';
+  ['email-link','footer-email'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.href = 'mailto:' + em; el.textContent = em; }
+  });
+
+  /* Custom cursor - only on true pointer devices */
+  var cur = document.getElementById('cur');
+  if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+    document.body.classList.add('use-cursor');
+    document.addEventListener('mousemove', function(e) {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+      cur.classList.add('show');
+    });
+    document.addEventListener('mouseleave', function() { cur.classList.remove('show'); });
+    document.querySelectorAll('a,button,.proj-card,.filter-btn,.chip,.stat-cell').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { cur.classList.add('big'); });
+      el.addEventListener('mouseleave', function() { cur.classList.remove('big'); });
+    });
+  }
+
+  /* Smooth scroll */
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* Nav highlight */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (!en.isIntersecting) return;
+        document.querySelectorAll('.gnav-links a').forEach(function(a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id);
+        });
+      });
+    }, { threshold: 0.4 });
+    ['hero','about','projects','contact'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  }
+
+  /* Project filter */
+  document.getElementById('filterBar').addEventListener('click', function(e) {
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var f = btn.dataset.f;
+    document.querySelectorAll('.proj-card').forEach(function(c) {
+      var show = f === 'all' || c.dataset.cat === f;
+      c.style.opacity       = show ? '1' : '0.22';
+      c.style.pointerEvents = show ? '' : 'none';
+      c.style.transition    = 'opacity .2s';
+    });
+  });
+
+  /* Overlay */
+  var overlay = document.getElementById('overlay');
+
+  function openOv(i) {
+    var p = PD[i];
+    document.getElementById('ov-eye').innerHTML  = p.eye;
+    document.getElementById('ov-ttl').textContent  = p.title;
+    document.getElementById('ov-desc').textContent = p.desc;
+    document.getElementById('ov-tags').innerHTML   =
+      p.tags.map(function(t){ return '<span class="ov-tag">'+t+'</span>'; }).join('');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOv() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('projGrid').addEventListener('click', function(e) {
+    var card = e.target.closest('.proj-card');
+    if (card) { openOv(parseInt(card.dataset.i, 10)); return; }
+    var hero = e.target.closest('.proj-hero');
+    if (hero && !e.target.closest('.sb-btn')) { openOv(parseInt(hero.dataset.i, 10)); return; }
+    var btn = e.target.closest('.sb-btn');
+    if (btn) { var h = btn.closest('.proj-hero'); if (h) openOv(parseInt(h.dataset.i, 10)); }
+  });
+  document.getElementById('ovClose').addEventListener('click', closeOv);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeOv(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeOv(); });
+
+  /* Contact form -> mailto */
+  document.getElementById('sendBtn').addEventListener('click', function() {
+    var name = document.getElementById('f-name').value.trim();
+    var mail = document.getElementById('f-email').value.trim();
+    var msg  = document.getElementById('f-msg').value.trim();
+    if (!name || !mail || !msg) { alert('Please fill in all fields.'); return; }
+    var sub  = encodeURIComponent('Portfolio enquiry from ' + name);
+    var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + mail + '\n\n' + msg);
+    window.location.href = 'mailto:' + em + '?subject=' + sub + '&body=' + body;
+  });
+
+})();
+</script>
+</body>
+</html>
